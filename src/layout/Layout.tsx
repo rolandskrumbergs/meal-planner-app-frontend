@@ -28,7 +28,11 @@ const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
             onClick={onItemClick}
             sx={{ 
               fontWeight: location.pathname === item.path ? 'bold' : 'normal',
-              color: location.pathname === item.path ? 'primary.500' : 'neutral.500'
+              color: location.pathname === item.path ? 'primary.500' : 'neutral.500',
+              borderRadius: 'md',
+              ...(location.pathname === item.path && {
+                bgcolor: 'primary.50',
+              })
             }}
           >
             {item.label}
