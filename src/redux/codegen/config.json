@@ -1,0 +1,16 @@
+{
+    "schemaFile": "http://localhost:5194/openapi/v1.json",
+    "apiFile": "./emptyApi.ts",
+    "apiImport": "emptyApi",
+    "outputFile": "generatedApi.ts",
+    "exportName": "generatedApi",
+    "argSuffix": "ApiRequest",
+    "responseSuffix": "ApiResponse",
+    "hooks": {
+      "queries": true,
+      "lazyQueries": true,
+      "mutations": true
+    },
+    "useEnumType": true
+  }
+  

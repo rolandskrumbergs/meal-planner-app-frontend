@@ -1,1 +1,1 @@
-# meal-planner-app-frontend
+# frontend-base

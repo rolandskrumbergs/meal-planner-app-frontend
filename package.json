@@ -1,0 +1,59 @@
+{
+    "name": "frontend-base",
+    "private": true,
+    "version": "1.0.0",
+    "type": "module",
+    "engines": {
+      "node": "22.15.0"
+    },
+    "volta": {
+      "node": "22.15.0",
+      "npm": "11.3.0"
+    },
+    "scripts": {
+      "dev": "vite",
+      "build": "tsc && vite build",
+      "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+      "preview": "vite preview",
+      "generate-api": "npx @rtk-query/codegen-openapi@latest src/redux/codegen/config.json"
+    },
+    "dependencies": {
+      "@azure/msal-browser": "4.11.0",
+      "@azure/msal-react": "3.0.10",
+      "@emotion/react": "11.14.0",
+      "@emotion/styled": "11.14.0",
+      "@fontsource/public-sans": "5.2.5",
+      "@hookform/resolvers": "5.0.1",
+      "@microsoft/applicationinsights-react-js": "18.3.6",
+      "@microsoft/applicationinsights-web": "3.3.6",
+      "@mui/joy": "5.0.0-beta.52",
+      "@reduxjs/toolkit": "2.7.0",
+      "file-saver": "2.0.5",
+      "i18next": "25.0.1",
+      "lucide-react": "0.503.0",
+      "luxon": "3.6.1",
+      "react": "18.3.1",
+      "react-dom": "18.3.1",
+      "react-hook-form": "7.56.1",
+      "react-hot-toast": "2.5.2",
+      "react-i18next": "15.5.1",
+      "react-redux": "9.2.0",
+      "react-router-dom": "7.5.2",
+      "zod": "3.24.3"
+    },
+    "devDependencies": {
+      "@types/file-saver": "2.0.7",
+      "@types/luxon": "3.6.2",
+      "@types/react": "18.3.1",
+      "@types/react-dom": "18.3.1",
+      "@typescript-eslint/eslint-plugin": "8.31.0",
+      "@typescript-eslint/parser": "8.31.0",
+      "@vitejs/plugin-react": "4.4.1",
+      "eslint": "9.25.1",
+      "eslint-plugin-react-hooks": "5.2.0",
+      "eslint-plugin-react-refresh": "0.4.20",
+      "typescript": "5.8.3",
+      "vite": "6.3.3"
+    }
+  }
+  
