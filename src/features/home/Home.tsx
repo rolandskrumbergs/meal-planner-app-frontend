@@ -1,4 +1,5 @@
 import { Box, Button, Card, CardContent, Container, Grid, Typography, Chip, Stack, CardOverflow, AspectRatio } from '@mui/joy';
+import { Clock5 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const recipeCategories = ['All', 'Breakfast', 'Lunch', 'Dinner', 'Vegetarian', 'Quick'];
@@ -7,7 +8,7 @@ const recipeData = [
   {
     id: 1,
     title: 'Mediterranean Salad',
-    image: '/mediterranean-salad.jpg',
+    image: '/mediterranean-salad.png',
     rating: 4.4,
     time: '15 mins',
     description: 'Fresh vegetables, feta cheese, olives, and a light vinaigrette dressing.',
@@ -16,7 +17,7 @@ const recipeData = [
   {
     id: 2,
     title: 'Avocado Toast',
-    image: '/avocado-toast.jpg',
+    image: '/avocado-toast.png',
     rating: 4.1,
     time: '7 mins',
     description: 'Whole grain toast topped with mashed avocado, cherry tomatoes, and a sprinkle of salt and pepper.',
@@ -25,7 +26,7 @@ const recipeData = [
   {
     id: 3,
     title: 'Grilled Chicken Bowl',
-    image: '/grilled-chicken.jpg',
+    image: '/grilled-chicken.png',
     rating: 4.5,
     time: '25 mins',
     description: 'Grilled chicken breast with roasted vegetables and quinoa for a balanced meal.',
@@ -71,7 +72,7 @@ export const Home = () => {
             <Grid xs={12} md={6}>
               <Box
                 component="img"
-                src="/hero-image.jpg"
+                src="/hero-image.png"
                 alt="Delicious meal"
                 sx={{
                   width: '100%',
@@ -142,7 +143,7 @@ export const Home = () => {
                 </CardContent>
                 <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
                   <Box sx={{ display: 'flex', gap: 1, p: 1, alignItems: 'center' }}>
-                    <Typography level="body-xs" sx={{ flexGrow: 1 }}>⏱ {recipe.time}</Typography>
+                    <Typography level="body-xs" sx={{ flexGrow: 1 }} startDecorator={<Clock5 size={16} />}>{recipe.time}</Typography>
                     <Button size="sm">Add to Plan</Button>
                   </Box>
                 </CardOverflow>
