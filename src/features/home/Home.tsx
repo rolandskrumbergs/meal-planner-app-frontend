@@ -211,7 +211,7 @@ export const Home = () => {
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Box sx={{ mb: 2 }}><NotebookText /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
-                    Personalized Planning
+                    Personalized planning
                   </Typography>
                   <Typography>
                     Create meal plans tailored to your dietary preferences, allergies, and cooking skills.
@@ -224,7 +224,7 @@ export const Home = () => {
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Box sx={{ mb: 2 }}><Clock5 /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
-                    Save Time
+                    Save time
                   </Typography>
                   <Typography>
                     No more wondering what to cook. Plan your meals ahead and spend less time on daily decisions.
@@ -237,7 +237,7 @@ export const Home = () => {
                 <CardContent sx={{ textAlign: 'center' }}>
                   <Box sx={{ mb: 2 }}><Lightbulb /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
-                    Discover New Ideas
+                    Discover new ideas
                   </Typography>
                   <Typography>
                     Explore new recipes that match your taste preferences and dietary needs.
@@ -273,7 +273,7 @@ export const Home = () => {
               size="lg"
               color="primary"
             >
-              Sign Up Free
+              Sign up free
             </Button>
             <Button
               component={Link}
@@ -281,7 +281,7 @@ export const Home = () => {
               size="lg"
               variant="outlined"
             >
-              Explore Recipes
+              Explore recipes
             </Button>
           </Stack>
         </Container>

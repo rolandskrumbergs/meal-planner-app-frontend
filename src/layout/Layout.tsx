@@ -61,7 +61,12 @@ const Header = () => {
         borderRadius: 0,
         borderTop: 'none',
         borderLeft: 'none',
-        borderRight: 'none'
+        borderRight: 'none',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1100,
+        bgcolor: 'background.surface',
+        backdropFilter: 'blur(6px)',
       }}
     >
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
