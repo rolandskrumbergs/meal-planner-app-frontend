@@ -155,105 +155,114 @@ const Footer = () => {
         {/* Quick Links Section */}
         <Box>
           <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>Quick Links</Typography>
-          <List>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/"
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Link to="/" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Home</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/meal-planner"
+              >
+                Home
+              </Typography>
+            </Link>
+            <Link to="/meal-planner" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Meal Planner</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/explore"
+              >
+                Meal Planner
+              </Typography>
+            </Link>
+            <Link to="/explore" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Explore Recipes</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/my-recipes"
+              >
+                Explore Recipes
+              </Typography>
+            </Link>
+            <Link to="/my-recipes" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Saved Recipes</ListItemButton>
-            </ListItem>
-          </List>
+              >
+                Saved Recipes
+              </Typography>
+            </Link>
+          </Box>
         </Box>
 
         {/* Support Section */}
         <Box>
           <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>Support</Typography>
-          <List>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/help-center"
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+            <Link to="/help-center" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Help Center</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/contact"
+              >
+                Help Center
+              </Typography>
+            </Link>
+            <Link to="/contact" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Contact Us</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/privacy"
+              >
+                Contact Us
+              </Typography>
+            </Link>
+            <Link to="/privacy" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Privacy Policy</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/cookie-policy"
+              >
+                Privacy Policy
+              </Typography>
+            </Link>
+            <Link to="/cookie-policy" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Cookie Policy</ListItemButton>
-            </ListItem>
-            <ListItem>
-              <ListItemButton 
-                component={Link} 
-                to="/account-settings"
+              >
+                Cookie Policy
+              </Typography>
+            </Link>
+            <Link to="/account-settings" style={{ textDecoration: 'none' }}>
+              <Typography 
+                level="body-sm" 
                 sx={{ 
                   color: 'neutral.300',
                   '&:hover': { color: 'neutral.100' }
                 }}
-              >Account Settings</ListItemButton>
-            </ListItem>
-          </List>
+              >
+                Account Settings
+              </Typography>
+            </Link>
+          </Box>
         </Box>
 
         {/* Subscribe Section */}
