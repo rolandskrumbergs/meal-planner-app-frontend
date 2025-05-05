@@ -1,5 +1,5 @@
 import { Box, Button, Card, CardContent, Container, Grid, Typography, Chip, Stack, CardOverflow, AspectRatio } from '@mui/joy';
-import { Clock5 } from 'lucide-react';
+import { Clock5, Lightbulb, NotebookText, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const recipeCategories = ['All', 'Breakfast', 'Lunch', 'Dinner', 'Vegetarian', 'Quick'];
@@ -114,10 +114,17 @@ export const Home = () => {
           ))}
         </Stack>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ mb: 6 }}>
           {recipeData.map((recipe) => (
             <Grid key={recipe.id} xs={12} sm={6} md={4}>
-              <Card variant="outlined">
+              <Card 
+                variant="outlined" 
+                sx={{ 
+                  height: '100%', 
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}
+              >
                 <CardOverflow>
                   <AspectRatio ratio="16/9">
                     <img
@@ -127,13 +134,35 @@ export const Home = () => {
                     />
                   </AspectRatio>
                 </CardOverflow>
-                <CardContent>
+                <CardContent sx={{ 
+                  flexGrow: 1, 
+                  display: 'flex',
+                  flexDirection: 'column'
+                }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
                     <Typography level="title-md">{recipe.title}</Typography>
-                    <Typography level="body-sm">★ {recipe.rating}</Typography>
+                    <Typography level="body-sm" startDecorator={<Star size={14}/>}>{recipe.rating}</Typography>
                   </Box>
-                  <Typography level="body-sm" sx={{ mb: 2 }}>{recipe.description}</Typography>
-                  <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+                  <Typography 
+                    level="body-sm" 
+                    sx={{ 
+                      mb: 2,
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis'
+                    }}
+                  >
+                    {recipe.description}
+                  </Typography>
+                  <Stack 
+                    direction="row" 
+                    spacing={1} 
+                    flexWrap="wrap" 
+                    useFlexGap 
+                    sx={{ mt: 'auto' }}
+                  >
                     {recipe.tags.map((tag) => (
                       <Chip key={tag} size="sm" variant="soft">
                         {tag}
@@ -152,14 +181,14 @@ export const Home = () => {
           ))}
         </Grid>
         
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
+        <Box sx={{ textAlign: 'center', pt: 4 }}>
           <Button
             component={Link}
             to="/recipes"
             variant="outlined"
             size="lg"
           >
-            Browse More Recipes
+            Browse more recipes
           </Button>
         </Box>
       </Container>
@@ -168,7 +197,9 @@ export const Home = () => {
       <Box sx={{ bgcolor: 'background.level1', py: { xs: 4, md: 8 } }}>
         <Container maxWidth="lg">
           <Typography level="h2" sx={{ textAlign: 'center', mb: 1 }}>
-            Why Use MealPlan?
+            Why use <Typography fontWeight={"bold"}>Week<Typography sx={{
+            color: 'primary.600'
+          }}>eater</Typography></Typography>?
           </Typography>
           <Typography level="body-md" sx={{ textAlign: 'center', mb: 6, color: 'text.secondary' }}>
             Our platform makes meal planning simple, efficient, and personalized to your preferences.
@@ -178,7 +209,7 @@ export const Home = () => {
             <Grid xs={12} md={4}>
               <Card variant="soft">
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Box sx={{ mb: 2 }}>📋</Box>
+                  <Box sx={{ mb: 2 }}><NotebookText /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
                     Personalized Planning
                   </Typography>
@@ -191,7 +222,7 @@ export const Home = () => {
             <Grid xs={12} md={4}>
               <Card variant="soft">
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Box sx={{ mb: 2 }}>⏱</Box>
+                  <Box sx={{ mb: 2 }}><Clock5 /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
                     Save Time
                   </Typography>
@@ -204,7 +235,7 @@ export const Home = () => {
             <Grid xs={12} md={4}>
               <Card variant="soft">
                 <CardContent sx={{ textAlign: 'center' }}>
-                  <Box sx={{ mb: 2 }}>💡</Box>
+                  <Box sx={{ mb: 2 }}><Lightbulb /></Box>
                   <Typography level="title-lg" sx={{ mb: 2 }}>
                     Discover New Ideas
                   </Typography>
@@ -231,7 +262,9 @@ export const Home = () => {
             Ready to simplify your meal planning?
           </Typography>
           <Typography sx={{ mb: 4, color: 'text.secondary' }}>
-            Join thousands of users who have transformed their cooking routine with MealPlan.
+            Join thousands of users who have transformed their cooking routine with <Typography fontWeight={"bold"}>Week<Typography sx={{
+            color: 'primary.600'
+          }}>eater</Typography></Typography>.
           </Typography>
           <Stack direction="row" spacing={2} justifyContent="center">
             <Button

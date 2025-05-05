@@ -1,6 +1,6 @@
 import { Box, Sheet, Button, List, ListItem, ListItemButton, Typography, IconButton, Drawer, Input } from '@mui/joy';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu as MenuIcon } from 'lucide-react';
+import { Copyright, Menu as MenuIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
@@ -314,23 +314,25 @@ const Footer = () => {
         flexWrap: 'wrap',
         gap: 2
       }}>
-        <Typography level="body-xs" sx={{ color: 'neutral.400' }}>
-          © {new Date().getFullYear()} MealPlan. All rights reserved.
+        <Typography level="body-xs" sx={{ color: 'neutral.400' }} startDecorator={<Copyright size={12} />}>
+          {new Date().getFullYear()} <Typography fontWeight={"bold"}>Week<Typography sx={{
+            color: 'primary.600'
+          }}>eater</Typography></Typography>. All rights reserved.
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <Link to="/privacy">
+          <Link to="/privacy" style={{ textDecoration: 'none' }}>
             <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
-              Privacy Policy
+              Privacy policy
             </Typography>
           </Link>
-          <Link to="/terms">
+          <Link to="/terms" style={{ textDecoration: 'none' }}>
             <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
-              Terms of Use
+              Terms of use
             </Typography>
           </Link>
-          <Link to="/cookies">
+          <Link to="/cookies" style={{ textDecoration: 'none' }}>
             <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
-              Cookie Policy
+              Cookie policy
             </Typography>
           </Link>
         </Box>
