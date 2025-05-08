@@ -29,7 +29,7 @@ import {
       // Learn more about AAD error codes at https://docs.microsoft.com/en-us/azure/active-directory/develop/reference-aadsts-error-codes
       if (event.error?.message.includes('AADB2C90118')) {
         const resetPasswordRequest = {
-          authority: b2cPolicies.authorities.forgotPassword.authority,
+          authority: b2cPolicies.authorities.passwordReset.authority,
           scopes: [],
         };
         void msalInstance.loginRedirect(resetPasswordRequest);

@@ -1,7 +1,8 @@
-import { Box, Sheet, Button, List, ListItem, ListItemButton, Typography, IconButton, Drawer, Input } from '@mui/joy';
-import { Link, useLocation } from 'react-router-dom';
-import { Copyright, Menu as MenuIcon } from 'lucide-react';
+import { Box, Sheet, Button, List, ListItem, ListItemButton, Typography, IconButton, Drawer, Input, Avatar, Menu, MenuButton, MenuItem, Divider } from '@mui/joy';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Copyright, Menu as MenuIcon, User, Settings, LogOut } from 'lucide-react';
 import { useState } from 'react';
+import { useAuth } from '../features/authentication/AuthContext';
 
 const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
   const location = useLocation();
@@ -45,9 +46,25 @@ const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { signIn, signOut, userInfo } = useAuth();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  const handleAuthClick = async () => {
+    if (!userInfo) {
+      await signIn();
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+  };
+
+  const handleProfileClick = () => {
+    navigate('/profile');
   };
 
   return (
@@ -79,7 +96,54 @@ const Header = () => {
       
       <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
         <Navigation />
-        <Button variant="solid" size="md">Login</Button>
+        {userInfo ? (
+          <Menu
+            placement="bottom-end"
+            size="sm"
+          >
+            <MenuButton
+              slots={{ root: IconButton }}
+              slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
+              sx={{
+                borderRadius: '50%',
+              }}
+            >
+              <Avatar
+                size="sm"
+                variant="solid"
+                alt={userInfo.fullName}
+              >
+                {userInfo.firstName}{userInfo.lastName}
+              </Avatar>
+            </MenuButton>
+            <Menu
+              placement="bottom-end"
+              size="sm"
+            >
+              <MenuItem onClick={handleProfileClick}>
+                <User size={16} style={{ marginRight: '8px' }} />
+                Profile
+              </MenuItem>
+              <MenuItem onClick={() => navigate('/account-settings')}>
+                <Settings size={16} style={{ marginRight: '8px' }} />
+                Account settings
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleLogout} color="danger">
+                <LogOut size={16} style={{ marginRight: '8px' }} />
+                Log out
+              </MenuItem>
+            </Menu>
+          </Menu>
+        ) : (
+          <Button 
+            variant="solid" 
+            size="md"
+            onClick={handleAuthClick}
+          >
+            Login
+          </Button>
+        )}
       </Box>
 
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
@@ -111,7 +175,45 @@ const Header = () => {
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Navigation onItemClick={handleDrawerToggle} />
-          <Button variant="solid" size="md" sx={{ mt: 2 }}>Login</Button>
+          {userInfo ? (
+            <>
+              <Button 
+                variant="soft" 
+                size="md" 
+                sx={{ mt: 2 }}
+                onClick={handleProfileClick}
+                startDecorator={<User size={16} />}
+              >
+                Profile
+              </Button>
+              <Button 
+                variant="soft" 
+                size="md"
+                onClick={() => navigate('/account-settings')}
+                startDecorator={<Settings size={16} />}
+              >
+                Account settings
+              </Button>
+              <Button 
+                variant="soft" 
+                color="danger"
+                size="md"
+                onClick={handleLogout}
+                startDecorator={<LogOut size={16} />}
+              >
+                Log out
+              </Button>
+            </>
+          ) : (
+            <Button 
+              variant="solid" 
+              size="md" 
+              sx={{ mt: 2 }}
+              onClick={handleAuthClick}
+            >
+              Login
+            </Button>
+          )}
         </Box>
       </Drawer>
     </Sheet>
