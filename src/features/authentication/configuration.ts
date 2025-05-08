@@ -6,17 +6,20 @@ import { Configuration, LogLevel, PopupRequest } from '@azure/msal-browser';
  * To learn more about custom policies, visit: https://docs.microsoft.com/en-us/azure/active-directory-b2c/custom-policy-overview
  */
 const tenantName = import.meta.env.VITE_MSAL_TENANT_NAME as string;
+const signUpSignInName = 'B2C_1_SignUp_SignIn';
+const passwordResetName = 'B2C_1_Password_Reset';
+
 export const b2cPolicies = {
   names: {
-    signIn: '',
-    forgotPassword: '',
+    signUpSignIn: signUpSignInName,
+    passwordReset: passwordResetName,
   },
   authorities: {
-    signIn: {
-      authority: ``,
+    signUpSignIn: {
+      authority: `https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${signUpSignInName}`,
     },
-    forgotPassword: {
-      authority: ``,
+    passwordReset: {
+      authority: `https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${passwordResetName}`,
     },
   },
   authorityDomain: `${tenantName}.b2clogin.com`,
@@ -30,7 +33,7 @@ export const b2cPolicies = {
 export const msalConfig: Configuration = {
   auth: {
     clientId: import.meta.env.VITE_MSAL_CLIENT_ID as string, // This is the ONLY mandatory field that you need to supply.
-    authority: b2cPolicies.authorities.signIn.authority, // Choose SUSI as your default authority.
+    authority: b2cPolicies.authorities.signUpSignIn.authority, // Choose SUSI as your default authority.
     knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
     redirectUri: '/', // You must register this URI on Azure Portal/App Registration. Defaults to window.location.origin
     postLogoutRedirectUri: '/', // Indicates the page to navigate after logout.

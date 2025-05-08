@@ -28,7 +28,7 @@ class AuthenticationService {
 
   async signIn(): Promise<void> {
     return await this.msalInstance.loginRedirect({
-      authority: b2cPolicies.authorities.signIn.authority,
+      authority: b2cPolicies.authorities.signUpSignIn.authority,
       scopes: [...protectedResources.api.scopes.full],
     });
   }
@@ -45,7 +45,7 @@ class AuthenticationService {
 
     const accessTokenRequest = {
       account: this.msalInstance.getActiveAccount() ?? undefined,
-      authority: b2cPolicies.authorities.signIn.authority,
+      authority: b2cPolicies.authorities.signUpSignIn.authority,
       scopes: [...protectedResources.api.scopes.full],
     };
 

@@ -43,9 +43,9 @@ export const Home = () => {
           <Grid container spacing={4} alignItems="center">
             <Grid xs={12} md={6}>
               <Typography level="h1" sx={{ mb: 2, fontSize: { xs: '2rem', md: '3rem' } }}>
-                Plan Your Meals,
+                Plan your meals,
                 <br />
-                Simplify Your Life
+                Simplify your life
               </Typography>
               <Typography level="body-lg" sx={{ mb: 4, color: 'text.secondary' }}>
                 Create weekly meal plans, discover new recipes tailored to your preferences, and never worry about what to cook again!
@@ -57,7 +57,7 @@ export const Home = () => {
                   size="lg"
                   color="primary"
                 >
-                  Start Planning
+                  Start planning
                 </Button>
                 <Button
                   component={Link}
@@ -65,7 +65,7 @@ export const Home = () => {
                   size="lg"
                   variant="outlined"
                 >
-                  Explore Recipes
+                  Explore recipes
                 </Button>
               </Stack>
             </Grid>
