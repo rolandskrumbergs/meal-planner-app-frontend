@@ -1,22 +1,26 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-//import authenticationService from '../../features/authentication/authenticationService';
-
-export enum TagType {
-  DEMO = 'DEMO',
-}
+import { msalInstance } from '../../main';
+import { protectedResources } from '../../features/authentication/configuration';
 
 export const emptyApi = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_BASE_ADDRESS as string,
     prepareHeaders: async (headers) => {
-      // const token = await authenticationService.acquireTokenSilent();
-      // if (token) {
-      //   headers.set('Authorization', `Bearer ${token}`);
-      //   return headers;
-      // }
+      try {
+        const account = msalInstance.getActiveAccount();
+        if (account) {
+          const response = await msalInstance.acquireTokenSilent({
+            scopes: protectedResources.api.scopes.full,
+            account: account,
+          });
+          headers.set('Authorization', `Bearer ${response.accessToken}`);
+        }
+      } catch (error) {
+        console.error('Failed to acquire token:', error);
+      }
+      return headers;
     },
   }),
   endpoints: () => ({}),
-  tagTypes: [TagType.DEMO],
 });
