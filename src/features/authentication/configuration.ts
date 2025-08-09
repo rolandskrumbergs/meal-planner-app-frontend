@@ -1,4 +1,19 @@
-import { Configuration, LogLevel, PopupRequest } from '@azure/msal-browser';
+import {
+  BrowserCacheLocation,
+  Configuration,
+  LogLevel,
+  PopupRequest,
+  PublicClientApplication,
+} from '@azure/msal-browser';
+
+const ua = window.navigator.userAgent;
+const msie = ua.indexOf('MSIE ');
+const msie11 = ua.indexOf('Trident/');
+const msedge = ua.indexOf('Edge/');
+const firefox = ua.indexOf('Firefox');
+const isIE = msie > 0 || msie11 > 0;
+const isEdge = msedge > 0;
+const isFirefox = firefox > 0; // Only needed if you need to support the redirect flow in Firefox incognito
 
 /**
  * Enter here the user flows and custom policies for your B2C application
@@ -8,11 +23,13 @@ import { Configuration, LogLevel, PopupRequest } from '@azure/msal-browser';
 const tenantName = import.meta.env.VITE_MSAL_TENANT_NAME as string;
 const signUpSignInName = 'B2C_1_SignUp_SignIn';
 const passwordResetName = 'B2C_1_Password_Reset';
+const editProfileName = 'B2C_1_ProfileEditPolicy';
 
 export const b2cPolicies = {
   names: {
     signUpSignIn: signUpSignInName,
     passwordReset: passwordResetName,
+    editProfile: editProfileName,
   },
   authorities: {
     signUpSignIn: {
@@ -40,8 +57,8 @@ export const msalConfig: Configuration = {
     navigateToLoginRequestUrl: false, // If "true", will navigate back to the original request location before processing the auth code response.
   },
   cache: {
-    cacheLocation: 'sessionStorage', // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
-    storeAuthStateInCookie: false, // Set this to "true" if you are having issues on IE11 or Edge
+    cacheLocation: BrowserCacheLocation.LocalStorage, // Configures cache location. "sessionStorage" is more secure, but "localStorage" gives you SSO between tabs.
+    storeAuthStateInCookie: isIE || isEdge || isFirefox,
   },
   system: {
     loggerOptions: {
@@ -91,3 +108,5 @@ export const protectedResources = {
 export const loginRequest: PopupRequest = {
   scopes: [...protectedResources.api.scopes.full],
 };
+
+export const msalInstance = new PublicClientApplication(msalConfig);

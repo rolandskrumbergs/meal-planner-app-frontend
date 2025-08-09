@@ -1,8 +1,24 @@
-import { Box, Sheet, Button, List, ListItem, ListItemButton, Typography, IconButton, Drawer, Input, Avatar, Menu, MenuButton, MenuItem, Divider } from '@mui/joy';
+import {
+  Box,
+  Sheet,
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  Typography,
+  IconButton,
+  Drawer,
+  Input,
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuItem,
+  Divider,
+} from '@mui/joy';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Copyright, Menu as MenuIcon, User, Settings, LogOut } from 'lucide-react';
 import { useState } from 'react';
-import { useAuth } from '../features/authentication/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
   const location = useLocation();
@@ -10,15 +26,19 @@ const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
     { label: 'Home', path: '/' },
     { label: 'Meal planner', path: '/meal-planner' },
     { label: 'My recipes', path: '/my-recipes' },
-    { label: 'Explore', path: '/explore' }
+    { label: 'Explore', path: '/explore' },
   ];
 
   return (
-    <List role="menubar" orientation="horizontal" sx={{ 
-      display: 'flex', 
-      gap: 2,
-      flexDirection: { xs: 'column', md: 'row' }
-    }}>
+    <List
+      role="menubar"
+      orientation="horizontal"
+      sx={{
+        display: 'flex',
+        gap: 2,
+        flexDirection: { xs: 'column', md: 'row' },
+      }}
+    >
       {navItems.map((item) => (
         <ListItem role="none" key={item.path}>
           <ListItemButton
@@ -27,13 +47,13 @@ const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
             to={item.path}
             selected={location.pathname === item.path}
             onClick={onItemClick}
-            sx={{ 
+            sx={{
               fontWeight: location.pathname === item.path ? 'bold' : 'normal',
               color: location.pathname === item.path ? 'primary.500' : 'neutral.500',
               borderRadius: 'md',
               ...(location.pathname === item.path && {
                 bgcolor: 'primary.50',
-              })
+              }),
             }}
           >
             {item.label}
@@ -46,7 +66,10 @@ const Navigation = ({ onItemClick }: { onItemClick?: () => void }) => {
 
 const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { signIn, signOut, userInfo } = useAuth();
+  const { login, logout, getUserInfo } = useAuth();
+
+  const userInfo = getUserInfo();
+
   const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
@@ -55,12 +78,12 @@ const Header = () => {
 
   const handleAuthClick = async () => {
     if (!userInfo) {
-      await signIn();
+      await login();
     }
   };
 
   const handleLogout = async () => {
-    await signOut();
+    await logout();
   };
 
   const handleProfileClick = () => {
@@ -68,7 +91,7 @@ const Header = () => {
   };
 
   return (
-    <Sheet 
+    <Sheet
       variant="outlined"
       sx={{
         p: 2,
@@ -88,19 +111,23 @@ const Header = () => {
     >
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         <Typography level="h4" sx={{ fontWeight: 'bold' }}>
-          Week<Typography sx={{
-            color: 'primary.600'
-          }}>eater</Typography>
+          Week
+          <Typography
+            sx={{
+              color: 'primary.600',
+            }}
+          >
+            eater
+          </Typography>
         </Typography>
       </Link>
-      
-      <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+
+      <Box
+        sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}
+      >
         <Navigation />
         {userInfo ? (
-          <Menu
-            placement="bottom-end"
-            size="sm"
-          >
+          <Menu placement="bottom-end" size="sm">
             <MenuButton
               slots={{ root: IconButton }}
               slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
@@ -108,18 +135,12 @@ const Header = () => {
                 borderRadius: '50%',
               }}
             >
-              <Avatar
-                size="sm"
-                variant="solid"
-                alt={userInfo.fullName}
-              >
-                {userInfo.firstName}{userInfo.lastName}
+              <Avatar size="sm" variant="solid" alt={userInfo.fullName}>
+                {userInfo.firstName}
+                {userInfo.lastName}
               </Avatar>
             </MenuButton>
-            <Menu
-              placement="bottom-end"
-              size="sm"
-            >
+            <Menu placement="bottom-end" size="sm">
               <MenuItem onClick={handleProfileClick}>
                 <User size={16} style={{ marginRight: '8px' }} />
                 Profile
@@ -136,20 +157,16 @@ const Header = () => {
             </Menu>
           </Menu>
         ) : (
-          <Button 
-            variant="solid" 
-            size="md"
-            onClick={handleAuthClick}
-          >
+          <Button variant="solid" size="md" onClick={handleAuthClick}>
             Login
           </Button>
         )}
       </Box>
 
       <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-        <IconButton 
-          variant="plain" 
-          color="neutral" 
+        <IconButton
+          variant="plain"
+          color="neutral"
           onClick={handleDrawerToggle}
           aria-label="Open menu"
         >
@@ -169,7 +186,7 @@ const Header = () => {
             p: 2,
             gap: 2,
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
           },
         }}
       >
@@ -177,25 +194,25 @@ const Header = () => {
           <Navigation onItemClick={handleDrawerToggle} />
           {userInfo ? (
             <>
-              <Button 
-                variant="soft" 
-                size="md" 
+              <Button
+                variant="soft"
+                size="md"
                 sx={{ mt: 2 }}
                 onClick={handleProfileClick}
                 startDecorator={<User size={16} />}
               >
                 Profile
               </Button>
-              <Button 
-                variant="soft" 
+              <Button
+                variant="soft"
                 size="md"
                 onClick={() => navigate('/account-settings')}
                 startDecorator={<Settings size={16} />}
               >
                 Account settings
               </Button>
-              <Button 
-                variant="soft" 
+              <Button
+                variant="soft"
                 color="danger"
                 size="md"
                 onClick={handleLogout}
@@ -205,9 +222,9 @@ const Header = () => {
               </Button>
             </>
           ) : (
-            <Button 
-              variant="solid" 
-              size="md" 
+            <Button
+              variant="solid"
+              size="md"
               sx={{ mt: 2 }}
               onClick={handleAuthClick}
             >
@@ -230,7 +247,7 @@ const Footer = () => {
         mt: 'auto',
         borderTop: '1px solid',
         borderColor: 'divider',
-        color: 'neutral.100'
+        color: 'neutral.100',
       }}
     >
       <Box
@@ -242,66 +259,74 @@ const Footer = () => {
           gridTemplateColumns: {
             xs: '1fr',
             sm: '1fr 1fr',
-            md: '1fr 1fr 1fr 1fr'
+            md: '1fr 1fr 1fr 1fr',
           },
-          gap: 4
+          gap: 4,
         }}
       >
         {/* Brand Section */}
         <Box>
           <Typography level="h4" sx={{ mb: 2, color: 'neutral.100' }}>
-          Week<Typography sx={{
-            color: 'primary.600'
-          }}>eater</Typography>
+            Week
+            <Typography
+              sx={{
+                color: 'primary.600',
+              }}
+            >
+              eater
+            </Typography>
           </Typography>
           <Typography level="body-sm" sx={{ mb: 2, color: 'neutral.300' }}>
-            Your personal meal planning assistant that makes cooking simple and enjoyable.
+            Your personal meal planning assistant that makes cooking simple and
+            enjoyable.
           </Typography>
         </Box>
 
         {/* Quick Links Section */}
         <Box>
-          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>Quick Links</Typography>
+          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>
+            Quick Links
+          </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <Link to="/" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Home
               </Typography>
             </Link>
             <Link to="/meal-planner" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Meal Planner
               </Typography>
             </Link>
             <Link to="/explore" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Explore Recipes
               </Typography>
             </Link>
             <Link to="/my-recipes" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Saved Recipes
@@ -312,58 +337,60 @@ const Footer = () => {
 
         {/* Support Section */}
         <Box>
-          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>Support</Typography>
+          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>
+            Support
+          </Typography>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
             <Link to="/help-center" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Help Center
               </Typography>
             </Link>
             <Link to="/contact" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Contact Us
               </Typography>
             </Link>
             <Link to="/privacy" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Privacy Policy
               </Typography>
             </Link>
             <Link to="/cookie-policy" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Cookie Policy
               </Typography>
             </Link>
             <Link to="/account-settings" style={{ textDecoration: 'none' }}>
-              <Typography 
-                level="body-sm" 
-                sx={{ 
+              <Typography
+                level="body-sm"
+                sx={{
                   color: 'neutral.300',
-                  '&:hover': { color: 'neutral.100' }
+                  '&:hover': { color: 'neutral.100' },
                 }}
               >
                 Account Settings
@@ -374,71 +401,99 @@ const Footer = () => {
 
         {/* Subscribe Section */}
         <Box>
-          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>Subscribe</Typography>
+          <Typography level="title-lg" sx={{ mb: 2, color: 'neutral.100' }}>
+            Subscribe
+          </Typography>
           <Typography level="body-sm" sx={{ mb: 2, color: 'neutral.300' }}>
             Stay up to date with recipe ideas and meal planning tips
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
-            <Input 
+            <Input
               size="sm"
               placeholder="Enter your email"
-              sx={{ 
+              sx={{
                 flexGrow: 1,
                 '--Input-decoratorChildHeight': '34px',
                 '--Input-placeholderOpacity': 0.7,
                 bgcolor: 'neutral.700',
                 color: 'neutral.100',
                 '&::placeholder': {
-                  color: 'neutral.400'
-                }
+                  color: 'neutral.400',
+                },
               }}
             />
-            <Button 
+            <Button
               size="sm"
               sx={{
                 bgcolor: 'primary.500',
                 color: 'neutral.100',
                 '&:hover': {
-                  bgcolor: 'primary.600'
-                }
+                  bgcolor: 'primary.600',
+                },
               }}
-            >Subscribe</Button>
+            >
+              Subscribe
+            </Button>
           </Box>
         </Box>
       </Box>
-      
-      <Box sx={{ 
-        maxWidth: '1200px', 
-        mx: 'auto', 
-        px: 3,
-        mt: 4,
-        pt: 2,
-        borderTop: '1px solid',
-        borderColor: 'neutral.700',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: 2
-      }}>
-        <Typography level="body-xs" sx={{ color: 'neutral.400' }} startDecorator={<Copyright size={12} />}>
-          {new Date().getFullYear()} <Typography fontWeight={"bold"}>Week<Typography sx={{
-            color: 'primary.600'
-          }}>eater</Typography></Typography>. All rights reserved.
+
+      <Box
+        sx={{
+          maxWidth: '1200px',
+          mx: 'auto',
+          px: 3,
+          mt: 4,
+          pt: 2,
+          borderTop: '1px solid',
+          borderColor: 'neutral.700',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: 2,
+        }}
+      >
+        <Typography
+          level="body-xs"
+          sx={{ color: 'neutral.400' }}
+          startDecorator={<Copyright size={12} />}
+        >
+          {new Date().getFullYear()}{' '}
+          <Typography fontWeight={'bold'}>
+            Week
+            <Typography
+              sx={{
+                color: 'primary.600',
+              }}
+            >
+              eater
+            </Typography>
+          </Typography>
+          . All rights reserved.
         </Typography>
         <Box sx={{ display: 'flex', gap: 2 }}>
           <Link to="/privacy" style={{ textDecoration: 'none' }}>
-            <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
+            <Typography
+              level="body-xs"
+              sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}
+            >
               Privacy policy
             </Typography>
           </Link>
           <Link to="/terms" style={{ textDecoration: 'none' }}>
-            <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
+            <Typography
+              level="body-xs"
+              sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}
+            >
               Terms of use
             </Typography>
           </Link>
           <Link to="/cookies" style={{ textDecoration: 'none' }}>
-            <Typography level="body-xs" sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}>
+            <Typography
+              level="body-xs"
+              sx={{ color: 'neutral.400', '&:hover': { color: 'neutral.100' } }}
+            >
               Cookie policy
             </Typography>
           </Link>
@@ -448,20 +503,22 @@ const Footer = () => {
   );
 };
 
-const Layout = ({ children }: { children: React.ReactNode }) => { 
-    return (
-        <Box sx={{ 
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
-            <Header />
-            <Box component="main" sx={{ flexGrow: 1 }}>
-                {children}
-            </Box>
-            <Footer />
-        </Box>
-    );
-}
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Header />
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        {children}
+      </Box>
+      <Footer />
+    </Box>
+  );
+};
 
 export default Layout;
