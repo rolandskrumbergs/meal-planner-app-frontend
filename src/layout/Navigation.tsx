@@ -1,5 +1,6 @@
 import { List, ListItem, ListItemButton } from '@mui/joy';
 import { Link, useLocation } from 'react-router-dom';
+import { routes } from '../constants/routes';
 
 interface NavigationProps {
   onItemClick?: () => void;
@@ -7,11 +8,12 @@ interface NavigationProps {
 
 const Navigation = ({ onItemClick }: NavigationProps) => {
   const location = useLocation();
+
   const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Meal planner', path: '/meal-planner' },
-    { label: 'My recipes', path: '/my-recipes' },
-    { label: 'Explore', path: '/explore' },
+    { label: 'Home', path: routes.home.path },
+    { label: 'Meal planner', path: routes.mealPlanner.path },
+    { label: 'My recipes', path: routes.myRecipes.path },
+    { label: 'Explore', path: routes.explore.path },
   ];
 
   return (

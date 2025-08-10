@@ -19,6 +19,7 @@ import {
   LogOut,
   CircleUserIcon,
 } from 'lucide-react';
+import { routes } from '../constants/routes';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import Navigation from './Navigation';
@@ -46,7 +47,7 @@ const Header = () => {
   };
 
   const handleProfileClick = () => {
-    navigate('/profile');
+    navigate(routes.profile.path);
   };
 
   return (
@@ -98,9 +99,9 @@ const Header = () => {
                 <User size={16} style={{ marginRight: '8px' }} />
                 Profile
               </MenuItem>
-              <MenuItem onClick={() => navigate('/account-settings')}>
+              <MenuItem onClick={() => navigate(routes.accountSettings.path)}>
                 <Settings size={16} style={{ marginRight: '8px' }} />
-                Account settings
+                {routes.accountSettings.label}
               </MenuItem>
               <Divider />
               <MenuItem onClick={handleLogout} color="danger">
@@ -159,10 +160,10 @@ const Header = () => {
               <Button
                 variant="soft"
                 size="md"
-                onClick={() => navigate('/account-settings')}
+                onClick={() => navigate(routes.accountSettings.path)}
                 startDecorator={<Settings size={16} />}
               >
-                Account settings
+                {routes.accountSettings.label}
               </Button>
               <Button
                 variant="soft"

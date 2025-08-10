@@ -6,6 +6,7 @@ import { reactPlugin } from './appInsights';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './layout/Layout';
 import { Home } from './features/home/Home';
+import { routes } from './constants/routes';
 import { MsalProvider } from '@azure/msal-react';
 import { IPublicClientApplication } from '@azure/msal-browser';
 
@@ -23,7 +24,7 @@ function App({ pca }: Readonly<AppProps>) {
           <BrowserRouter>
             <Layout>
               <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path={routes.home.path} element={<Home />} />
               </Routes>
             </Layout>
           </BrowserRouter>
