@@ -14,9 +14,17 @@ import {
   MenuButton,
   MenuItem,
   Divider,
+  Dropdown,
 } from '@mui/joy';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Copyright, Menu as MenuIcon, User, Settings, LogOut } from 'lucide-react';
+import {
+  Copyright,
+  Menu as MenuIcon,
+  User,
+  Settings,
+  LogOut,
+  CircleUserIcon,
+} from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
@@ -111,7 +119,7 @@ const Header = () => {
     >
       <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
         <Typography level="h4" sx={{ fontWeight: 'bold' }}>
-          Week
+          Easy
           <Typography
             sx={{
               color: 'primary.600',
@@ -127,20 +135,14 @@ const Header = () => {
       >
         <Navigation />
         {userInfo ? (
-          <Menu placement="bottom-end" size="sm">
+          <Dropdown>
             <MenuButton
               slots={{ root: IconButton }}
-              slotProps={{ root: { variant: 'plain', color: 'neutral' } }}
-              sx={{
-                borderRadius: '50%',
-              }}
+              slotProps={{ root: { variant: 'plain' } }}
             >
-              <Avatar size="sm" variant="solid" alt={userInfo.fullName}>
-                {userInfo.firstName}
-                {userInfo.lastName}
-              </Avatar>
+              <CircleUserIcon />
             </MenuButton>
-            <Menu placement="bottom-end" size="sm">
+            <Menu>
               <MenuItem onClick={handleProfileClick}>
                 <User size={16} style={{ marginRight: '8px' }} />
                 Profile
@@ -155,7 +157,7 @@ const Header = () => {
                 Log out
               </MenuItem>
             </Menu>
-          </Menu>
+          </Dropdown>
         ) : (
           <Button variant="solid" size="md" onClick={handleAuthClick}>
             Login
@@ -267,7 +269,7 @@ const Footer = () => {
         {/* Brand Section */}
         <Box>
           <Typography level="h4" sx={{ mb: 2, color: 'neutral.100' }}>
-            Week
+            Easy
             <Typography
               sx={{
                 color: 'primary.600',
@@ -461,7 +463,7 @@ const Footer = () => {
         >
           {new Date().getFullYear()}{' '}
           <Typography fontWeight={'bold'}>
-            Week
+            Easy
             <Typography
               sx={{
                 color: 'primary.600',
