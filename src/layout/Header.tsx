@@ -93,7 +93,7 @@ const Header = () => {
             >
               <CircleUserIcon />
             </MenuButton>
-            <Menu>
+            <Menu sx={{ zIndex: 1200 }}>
               <MenuItem onClick={handleProfileClick}>
                 <User size={16} style={{ marginRight: '8px' }} />
                 Profile
